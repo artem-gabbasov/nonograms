@@ -64,6 +64,14 @@
 
     5.1. Error Handling
 
-        5.1.1. The system shall validate all user inputs (e.g., wrong file type, invalid file size) and notify the user of any errors.
+        5.1.1. The system shall validate all user inputs (e.g., wrong file type, invalid file size) and notify the user of any errors. In particular:
 
-        5.1.2. The system shall handle unexpected failures by providing clear error messages and guidance for resolution.
+            5.1.1.1. At least the JPEG file type shall be supported. In case of an unsupported file type, the list of supported ones shall be provided to the user.
+
+            5.1.1.2. Only input images of a reasonable size shall be accepted. For this, the size shall be limited by 10 megabytes.
+
+            5.1.1.3. The requested nonograms shall have reasonable dimensions. For this, the nonogram dimensions (both height and width) shall be limited by 150 cells.
+
+            5.1.1.4. The divided nonogram parts shall have reasonable dimensions. For this, the nonogram part dimensions (both height and width) shall be at least 10 cells.
+
+        5.1.2. The system shall handle failures by providing clear error messages and guidance for resolution.
