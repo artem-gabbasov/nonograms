@@ -42,7 +42,7 @@
 
         2.2.1. The system shall annotate each segment with appropriate number labels (row and column clues) to allow its unambiguous conversion into an individual nonogram puzzle.
 
-4. Pagination Service
+3. Pagination Service
 
     3.1. Image Transformation:
 
@@ -60,7 +60,7 @@
 
         3.3.2. The label can be added either in the empty top-left corner of the puzzle or beyond its right and bottom borders (or in all the listed places).
 
-5. PDF Generation Service
+4. PDF Generation Service
 
     4.1. PDF Creation:
 
