@@ -12,7 +12,7 @@
 
         1.2.1. The system shall allow the user to preview the nonogram puzzle result before proceeding with full processing.
 
-        1.2.2. The preview will show the image representing the puzzle solution, without triggering all the workflow.
+        1.2.2. The preview shall show the image representing the puzzle solution, without triggering all the workflow.
 
     1.3. Future Enhancements:
 
