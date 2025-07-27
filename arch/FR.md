@@ -59,3 +59,11 @@
         4.1.1. The system shall generate a PDF file containing the arranged pages of the nonogram puzzles.
 
         4.1.2. The generated PDF shall be downloadable or shareable by the user.
+
+5. System-wide Requirements
+
+    5.1. Error Handling
+
+        5.1.1. The system shall validate all user inputs (e.g., wrong file type, invalid file size) and notify the user of any errors.
+
+        5.1.2. The system shall handle unexpected failures by providing clear error messages and guidance for resolution.
