@@ -1,10 +1,12 @@
 import sys
-from PIL import Image
+
 import numpy as np
+from PIL import Image
+
 
 def image_to_monochrome_matrix(image_path, width, height, threshold=128):
     # Open and convert image to grayscale
-    with Image.open(image_path).convert('L') as img:
+    with Image.open(image_path).convert("L") as img:
         # Resize image to desired dimensions
         img = img.resize((width, height))
         # Convert to numpy array
@@ -12,6 +14,7 @@ def image_to_monochrome_matrix(image_path, width, height, threshold=128):
     # Apply threshold to get 0 or 1
     matrix = (arr < threshold).astype(int)
     return matrix
+
 
 if __name__ == "__main__":
     if not 4 <= len(sys.argv) <= 5:
@@ -26,4 +29,4 @@ if __name__ == "__main__":
     else:
         matrix = image_to_monochrome_matrix(image_path, width, height)
     for row in matrix:
-        print(''.join(map(str, row)))
+        print("".join(map(str, row)))
