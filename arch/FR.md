@@ -24,9 +24,17 @@
 
     2.1. Image Segmentation:
 
-        2.1.1. The system shall accept an image of a nonogram puzzle solution and divide it into several smaller, non-overlapping segments.
+        2.1.1. The system shall accept an image of a nonogram puzzle solution and divide it into several smaller, non-overlapping 2-dimensional segments.
 
-        2.1.2. The segmentation process shall be configurable with user-defined parameters, such as the number of rows/columns or segment dimensions.
+        2.1.2. The segmentation process shall be configurable with user-defined parameters, in particular:
+
+            2.1.2.1. The system shall request from the user a value that limits the allowed number of both rows and columns of each resultant segment.
+
+            2.1.2.2. The system shall divide the entire puzzle into the minimal possible number of segments allowed by the limit provided by the user.
+
+            2.1.2.3. The dimensions of the resultant segments shall be distributed as evenly as possible. For example, if one of the dimensions (width or height) is equal to 39 and the user limit is equal to 20, then it shall be divided into 2 segments along this dimension: of 20 and 19 cells, in any order. If the user limit is equal to 14, it shall be divided into 3 equal segments of 13 cells along this dimension.
+   
+            2.1.2.4. In the future the segmentation might be based on more sophisticated methods of complexity estimation than just division by dimensions. This means that the requirement of even distribution of segment dimensions might be reconsidered.
 
         2.1.3. The output shall provide enough information to reconstruct the order (or anyway the position) of each segment inside the original image.
 
