@@ -31,9 +31,7 @@ class NonogramProcessor:
 
     def load_image(self):
         assert self.path, "Image path must be provided"
-        assert self.path.endswith(
-            (".png", ".jpg", ".jpeg")
-        ), "Unsupported image format. Use PNG or JPEG."
+        assert self.path.endswith(".png"), "Unsupported image format. Use PNG."
         img = Image.open(self.path).convert("RGB")
         return np.array(img)
 

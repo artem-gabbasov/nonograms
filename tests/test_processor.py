@@ -169,9 +169,7 @@ def test_padding_and_split():
 
 def test_invalid_image_format():
     # Create a dummy image with an unsupported format
-    with pytest.raises(
-        AssertionError, match="Unsupported image format. Use PNG or JPEG."
-    ):
+    with pytest.raises(AssertionError, match="Unsupported image format. Use PNG."):
         proc = NonogramProcessor("dummy.txt")
         proc.load_image()
 
