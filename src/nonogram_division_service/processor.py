@@ -3,6 +3,8 @@ import numpy as np
 import argparse
 from itertools import groupby
 
+WHITE_PIXEL = (255, 255, 255)
+
 
 class NonogramProcessor:
     """Processes an image into nonogram tiles with clues.
@@ -33,10 +35,6 @@ class NonogramProcessor:
             (".png", ".jpg", ".jpeg")
         ), "Unsupported image format. Use PNG or JPEG."
         img = Image.open(self.path).convert("RGB")
-        width, height = img.size
-        assert (
-            width >= self.tile_width and height >= self.tile_height
-        ), "Image dimensions must be at least as large as tile size"
         return np.array(img)
 
     def convert_to_grid(self, pixels: np.ndarray):
@@ -55,7 +53,7 @@ class NonogramProcessor:
         if isinstance(grid[0][0], int):
             pad_val = 0
         else:
-            pad_val = (255, 255, 255)
+            pad_val = WHITE_PIXEL
 
         for row in grid:
             row.extend([pad_val] * pad_c)
@@ -91,12 +89,8 @@ class NonogramProcessor:
                 ]
             else:  # color mode
                 return [
-                    [
-                        (v, len(list(g)))
-                        for v, g in groupby(line)
-                        if v != (255, 255, 255)
-                    ]
-                    or [((255, 255, 255), 0)]
+                    [(v, len(list(g))) for v, g in groupby(line) if v != WHITE_PIXEL]
+                    or [(WHITE_PIXEL, 0)]
                     for line in lines
                 ]
 
