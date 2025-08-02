@@ -17,8 +17,7 @@ def test_binary_mode_simple_tile():
     ]
 
     proc = NonogramProcessor(str(img_path), tile_width=5, tile_height=5, mode="binary")
-    proc.process()
-    tiles = proc.export()
+    tiles = proc.process()
     assert len(tiles) == 1
     tile = tiles[0]
     assert tile["position"] == (0, 0)
@@ -109,8 +108,7 @@ def test_color_mode_simple():
         [((np.uint8(33), np.uint8(191), np.uint8(247)), 1)],
     ]
     proc = NonogramProcessor(str(img_path), tile_width=5, tile_height=5, mode="color")
-    proc.process()
-    tiles = proc.export()
+    tiles = proc.process()
     tile = tiles[0]
     assert len(tiles) == 1
     assert tile["position"] == (0, 0)
@@ -154,8 +152,7 @@ def test_padding_and_split():
         [1, 1, 0, 1, 0],
     ]
     proc = NonogramProcessor(str(img_path), tile_width=5, tile_height=5)
-    proc.process()
-    tiles = proc.export()
+    tiles = proc.process()
     assert len(tiles) == 4
     assert tiles[0]["position"] == (0, 0)
     assert tiles[0]["grid"] == grid_0_0
