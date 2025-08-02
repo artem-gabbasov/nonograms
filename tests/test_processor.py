@@ -27,7 +27,7 @@ def test_binary_mode_simple_tile():
     assert tile["col_clues"] == [[1, 3], [2, 2], [1, 1], [2], [1, 1]]
 
 
-def test_color_mode_simple(tmp_path):
+def test_color_mode_simple():
     img_path = Path("examples") / "input_5x5_color.png"
     expected_grid = [
         [
