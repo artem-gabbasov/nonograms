@@ -13,16 +13,14 @@ class NonogramProcessor:
         path (str): Path to the input image file.
         tile_width (int): Width of each nonogram tile.
         tile_height (int): Height of each nonogram tile.
-        mode (str): Processing mode: 'binary' or 'color'.
     Returns:
         sub_nonograms (list): List of sub-nonograms, each with its own clues
     """
 
-    def __init__(self, path, tile_width=5, tile_height=5, mode="binary"):
+    def __init__(self, path, tile_width=5, tile_height=5):
         self.path = path
         self.tile_width = tile_width
         self.tile_height = tile_height
-        self.mode = mode
 
     def load_image(self):
         assert self.path, "Image path must be provided"
@@ -31,13 +29,7 @@ class NonogramProcessor:
         return np.array(img)
 
     def convert_to_grid(self, pixels: np.ndarray):
-        if self.mode == "binary":
-            binary = (pixels != [255, 255, 255]).any(axis=2).astype(int)
-            grid = binary.tolist()
-        elif self.mode == "color":
-            grid = [[tuple(p) for p in row] for row in pixels]
-        else:
-            raise ValueError("Unsupported mode")
+        grid = [[tuple(p) for p in row] for row in pixels]
         return grid
 
     def pad_grid(self, grid):
@@ -77,17 +69,11 @@ class NonogramProcessor:
 
     def generate_clues(self, grid):
         def row_col_clues(lines):
-            if isinstance(lines[0][0], int):  # binary mode
-                return [
-                    [len(list(g)) for v, g in groupby(line) if v == 1] or [0]
-                    for line in lines
-                ]
-            else:  # color mode
-                return [
-                    [(v, len(list(g))) for v, g in groupby(line) if v != WHITE_PIXEL]
-                    or [(WHITE_PIXEL, 0)]
-                    for line in lines
-                ]
+            return [
+                [(v, len(list(g))) for v, g in groupby(line) if v != WHITE_PIXEL]
+                or [(WHITE_PIXEL, 0)]
+                for line in lines
+            ]
 
         rows = row_col_clues(grid)
         cols = row_col_clues(list(zip(*grid)))  # Transpose
@@ -135,16 +121,8 @@ if __name__ == "__main__":
         default=5,
         help="Height of each nonogram tile (default: 5)",
     )
-    parser.add_argument(
-        "--mode",
-        choices=["binary", "color"],
-        default="binary",
-        help="Processing mode: 'binary' or 'color' (default: 'binary')",
-    )
 
     args = parser.parse_args()
-    processor = NonogramProcessor(
-        args.image_path, args.tile_width, args.tile_height, args.mode
-    )
+    processor = NonogramProcessor(args.image_path, args.tile_width, args.tile_height)
     sub_nonograms = processor.process()
     processor.print_results(sub_nonograms)
