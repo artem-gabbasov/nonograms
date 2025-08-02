@@ -7,20 +7,20 @@ WHITE_PIXEL = (255, 255, 255)
 
 
 class NonogramProcessor:
-    """Processes an image into nonogram tiles with clues.
+    """Processes an image into nonogram segments with clues.
     Each pixel represents a cell in the nonogram.
     Args:
         path (str): Path to the input image file.
-        tile_width (int): Width of each nonogram tile.
-        tile_height (int): Height of each nonogram tile.
+        segment_width (int): Width of each nonogram segment.
+        segment_height (int): Height of each nonogram segment.
     Returns:
         sub_nonograms (list): List of sub-nonograms, each with its own clues
     """
 
-    def __init__(self, path, tile_width=5, tile_height=5):
+    def __init__(self, path, segment_width=5, segment_height=5):
         self.path = path
-        self.tile_width = tile_width
-        self.tile_height = tile_height
+        self.segment_width = segment_width
+        self.segment_height = segment_height
 
     def load_image(self):
         assert self.path, "Image path must be provided"
@@ -34,8 +34,8 @@ class NonogramProcessor:
 
     def pad_grid(self, grid):
         rows, cols = len(grid), len(grid[0])
-        pad_r = (-rows) % self.tile_height
-        pad_c = (-cols) % self.tile_width
+        pad_r = (-rows) % self.segment_height
+        pad_c = (-cols) % self.segment_width
         if isinstance(grid[0][0], int):
             pad_val = 0
         else:
@@ -47,22 +47,22 @@ class NonogramProcessor:
             grid.append([pad_val] * len(grid[0]))
         return grid
 
-    def split_into_tiles(self, grid):
-        """Split the grid into tiles of specified size.
-        Each tile is a sub-nonogram with its own clues.
+    def split_into_segments(self, grid):
+        """Split the grid into segments of specified size.
+        Each segment is a sub-nonogram with its own clues.
         """
         padded = self.pad_grid(grid)
         sub_nonograms = []
-        for r in range(0, len(padded), self.tile_height):
-            for c in range(0, len(padded[0]), self.tile_width):
-                tile = [
-                    row[c : c + self.tile_width]
-                    for row in padded[r : r + self.tile_height]
+        for r in range(0, len(padded), self.segment_height):
+            for c in range(0, len(padded[0]), self.segment_width):
+                segment = [
+                    row[c : c + self.segment_width]
+                    for row in padded[r : r + self.segment_height]
                 ]
                 sub_nonograms.append(
                     {
-                        "position": (r // self.tile_height, c // self.tile_width),
-                        "grid": tile,
+                        "position": (r // self.segment_height, c // self.segment_width),
+                        "grid": segment,
                     }
                 )
         return sub_nonograms
@@ -82,47 +82,49 @@ class NonogramProcessor:
     def process(self):
         pixels = self.load_image()
         grid = self.convert_to_grid(pixels)
-        sub_nonograms = self.split_into_tiles(grid)
+        sub_nonograms = self.split_into_segments(grid)
 
-        for tile in sub_nonograms:
-            row_clues, col_clues = self.generate_clues(tile["grid"])
-            tile["row_clues"] = row_clues
-            tile["col_clues"] = col_clues
+        for segment in sub_nonograms:
+            row_clues, col_clues = self.generate_clues(segment["grid"])
+            segment["row_clues"] = row_clues
+            segment["col_clues"] = col_clues
 
         return sub_nonograms
 
     def print_results(self, sub_nonograms):
-        for tile in sub_nonograms:
-            print(f"Tile at {tile['position']}:")
+        for segment in sub_nonograms:
+            print(f"Tile at {segment['position']}:")
             print("Grid:")
-            for row in tile["grid"]:
+            for row in segment["grid"]:
                 print(row)
-            print("Row clues:", tile["row_clues"])
-            print("Column clues:", tile["col_clues"])
+            print("Row clues:", segment["row_clues"])
+            print("Column clues:", segment["col_clues"])
             print()
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Process an image into nonogram tiles."
+        description="Process an image into nonogram segments."
     )
     parser.add_argument(
         "--image-path", help="Path to the input image file", required=True
     )
     parser.add_argument(
-        "--tile-width",
+        "--segment-width",
         type=int,
         default=5,
-        help="Width of each nonogram tile (default: 5)",
+        help="Width of each nonogram segment (default: 5)",
     )
     parser.add_argument(
-        "--tile-height",
+        "--segment-height",
         type=int,
         default=5,
-        help="Height of each nonogram tile (default: 5)",
+        help="Height of each nonogram segment (default: 5)",
     )
 
     args = parser.parse_args()
-    processor = NonogramProcessor(args.image_path, args.tile_width, args.tile_height)
+    processor = NonogramProcessor(
+        args.image_path, args.segment_width, args.segment_height
+    )
     sub_nonograms = processor.process()
     processor.print_results(sub_nonograms)

@@ -5,7 +5,7 @@ import pytest
 from ..src.nonogram_division_service.processor import NonogramProcessor
 
 
-def test_binary_simple_tile():
+def test_binary_simple_segment():
     # 5x5 black and white image (all black)
     img_path = Path("examples") / "input_5x5_bw.png"
     expected_grid = [
@@ -45,13 +45,13 @@ def test_binary_simple_tile():
             (np.uint8(255), np.uint8(255), np.uint8(255)),
         ],
     ]
-    proc = NonogramProcessor(str(img_path), tile_width=5, tile_height=5)
-    tiles = proc.process()
-    assert len(tiles) == 1
-    tile = tiles[0]
-    assert tile["position"] == (0, 0)
-    assert tile["grid"] == expected_grid
-    assert tile["row_clues"] == [
+    proc = NonogramProcessor(str(img_path), segment_width=5, segment_height=5)
+    segments = proc.process()
+    assert len(segments) == 1
+    segment = segments[0]
+    assert segment["position"] == (0, 0)
+    assert segment["grid"] == expected_grid
+    assert segment["row_clues"] == [
         [
             ((np.uint8(0), np.uint8(0), np.uint8(0)), 2),
             ((np.uint8(0), np.uint8(0), np.uint8(0)), 1),
@@ -67,7 +67,7 @@ def test_binary_simple_tile():
         ],
         [((np.uint8(0), np.uint8(0), np.uint8(0)), 3)],
     ]
-    assert tile["col_clues"] == [
+    assert segment["col_clues"] == [
         [
             ((np.uint8(0), np.uint8(0), np.uint8(0)), 1),
             ((np.uint8(0), np.uint8(0), np.uint8(0)), 3),
@@ -88,7 +88,7 @@ def test_binary_simple_tile():
     ]
 
 
-def test_colored_simple_tile():
+def test_colored_simple_segment():
     img_path = Path("examples") / "input_5x5_color.png"
     expected_grid = [
         [
@@ -169,18 +169,18 @@ def test_colored_simple_tile():
         ],
         [((np.uint8(33), np.uint8(191), np.uint8(247)), 1)],
     ]
-    proc = NonogramProcessor(str(img_path), tile_width=5, tile_height=5)
-    tiles = proc.process()
-    tile = tiles[0]
-    assert len(tiles) == 1
-    assert tile["position"] == (0, 0)
-    assert tile["grid"] == expected_grid
-    assert tile["row_clues"] == expected_row_clues
-    assert tile["col_clues"] == expected_col_clues
+    proc = NonogramProcessor(str(img_path), segment_width=5, segment_height=5)
+    segments = proc.process()
+    segment = segments[0]
+    assert len(segments) == 1
+    assert segment["position"] == (0, 0)
+    assert segment["grid"] == expected_grid
+    assert segment["row_clues"] == expected_row_clues
+    assert segment["col_clues"] == expected_col_clues
 
 
 def test_padding_and_split():
-    # 9x10image with 5x5 tiles
+    # 9x10image with 5x5 segments
     img_path = img_path = Path("examples") / "input_9x10_bw.png"
     grid_0_0 = [
         [
@@ -333,17 +333,17 @@ def test_padding_and_split():
             (255, 255, 255),
         ],
     ]
-    proc = NonogramProcessor(str(img_path), tile_width=5, tile_height=5)
-    tiles = proc.process()
-    assert len(tiles) == 4
-    assert tiles[0]["position"] == (0, 0)
-    assert tiles[0]["grid"] == grid_0_0
-    assert tiles[1]["position"] == (0, 1)
-    assert tiles[1]["grid"] == grid_0_1
-    assert tiles[2]["position"] == (1, 0)
-    assert tiles[2]["grid"] == grid_1_0
-    assert tiles[3]["position"] == (1, 1)
-    assert tiles[3]["grid"] == grid_1_1
+    proc = NonogramProcessor(str(img_path), segment_width=5, segment_height=5)
+    segments = proc.process()
+    assert len(segments) == 4
+    assert segments[0]["position"] == (0, 0)
+    assert segments[0]["grid"] == grid_0_0
+    assert segments[1]["position"] == (0, 1)
+    assert segments[1]["grid"] == grid_0_1
+    assert segments[2]["position"] == (1, 0)
+    assert segments[2]["grid"] == grid_1_0
+    assert segments[3]["position"] == (1, 1)
+    assert segments[3]["grid"] == grid_1_1
 
 
 def test_invalid_image_format():
