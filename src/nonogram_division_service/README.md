@@ -1,16 +1,15 @@
 # 🧩 Nonogram Division Service
 
 ## Overview
-Splits a solved nonogram Image (1 pixel = 1 cell) into smaller, playable nonograms (tiles), each with its own clues.
+Splits a solved nonogram Image (1 pixel = 1 cell) into smaller, playable nonograms (segments), each with its own clues.
 
 ## Input
 - **Image file:** Each pixel is a cell (white = empty)
-- **Mode:** `"binary"` (default) or `"color"`
-- **Tile width:** e.g. 4
-- **Tile height:** e.g. 5
+- **Segment width:** e.g. 4
+- **Segment height:** e.g. 5
 
 ## Output
-List of tiles:
+List of segments:
 ```python
 {
     "position": (row, col),
@@ -23,26 +22,22 @@ List of tiles:
 ## Main Steps
 1. Load Image → RGB grid
 2. Convert to binary/color grid
-3. Pad grid if needed
-4. Split into tiles
-5. Generate clues for each tile
+3. Split into segments
+4. Generate clues for each segment
 
 ## Class Structure
 ```
 NonogramProcessor
  ├─ load_image()
  ├─ convert_to_grid()
- ├─ pad_grid()
- ├─ split_into_tiles()
+ ├─ split_into_segments()
  ├─ generate_clues()
  ├─ process()
- ├─ export()
  └─ print_results()
 ```
 
 ## Example
 ```python
-processor = NonogramProcessor("input_solution.png", tile_width=4, tile_height=5, mode="binary")
-processor.process()
-tiles = processor.export()
+processor = NonogramProcessor("input_solution.png", segment_width=4, segment_height=5)
+segments = processor.process()
 ```
