@@ -126,15 +126,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Process an image into nonogram tiles."
     )
-    parser.add_argument("image_path", help="Path to the input image file")
     parser.add_argument(
-        "--tile_width",
+        "--image-path", help="Path to the input image file", required=True
+    )
+    parser.add_argument(
+        "--tile-width",
         type=int,
         default=5,
         help="Width of each nonogram tile (default: 5)",
     )
     parser.add_argument(
-        "--tile_height",
+        "--tile-height",
         type=int,
         default=5,
         help="Height of each nonogram tile (default: 5)",

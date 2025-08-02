@@ -49,7 +49,7 @@ if __name__ == "__main__":
         description="Generate a random nonogram solution image."
     )
     parser.add_argument(
-        "--image_path",
+        "--image-path",
         type=str,
         default="example_nonogram_solution.png",
         help="Path to save the generated image.",
