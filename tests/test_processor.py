@@ -1,12 +1,13 @@
 import numpy as np
 from PIL import Image
+from pathlib import Path
 import pytest
-from .processor import NonogramProcessor
+from ..src.nonogram_division_service.processor import NonogramProcessor
 
 
 def test_binary_mode_simple_tile():
     # 5x5 black and white image (all black)
-    img_path = "input_5x5_bw.png"
+    img_path = Path("examples") / "input_5x5_bw.png"
     expected_grid = [
         [1, 1, 0, 0, 1],
         [0, 1, 1, 1, 0],
@@ -27,7 +28,7 @@ def test_binary_mode_simple_tile():
 
 
 def test_color_mode_simple(tmp_path):
-    img_path = "input_5x5_color.png"
+    img_path = Path("examples") / "input_5x5_color.png"
     expected_grid = [
         [
             (np.uint8(44), np.uint8(246), np.uint8(210)),
@@ -120,7 +121,7 @@ def test_color_mode_simple(tmp_path):
 
 def test_padding_and_split():
     # 9x10image with 5x5 tiles
-    img_path = "input_9x10_bw.png"
+    img_path = img_path = Path("examples") / "input_9x10_bw.png"
     grid_0_0 = [
         [0, 1, 0, 0, 1],
         [1, 1, 0, 1, 0],
