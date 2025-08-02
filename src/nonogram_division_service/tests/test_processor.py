@@ -228,35 +228,30 @@ def test_padding_and_split():
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
-            (255, 255, 255),
         ],
         [
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
-            (255, 255, 255),
         ],
         [
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
-            (255, 255, 255),
         ],
         [
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
-            (255, 255, 255),
         ],
         [
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
-            (255, 255, 255),
         ],
     ]
 
@@ -304,35 +299,30 @@ def test_padding_and_split():
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
-            (255, 255, 255),
         ],
         [
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
-            (255, 255, 255),
         ],
         [
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
-            (255, 255, 255),
         ],
         [
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
-            (255, 255, 255),
         ],
         [
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
             (np.uint8(255), np.uint8(255), np.uint8(255)),
             (np.uint8(0), np.uint8(0), np.uint8(0)),
-            (255, 255, 255),
         ],
     ]
     proc = NonogramProcessor(str(img_path), segment_width=5, segment_height=5)

@@ -32,32 +32,16 @@ class NonogramProcessor:
         grid = [[tuple(p) for p in row] for row in pixels]
         return grid
 
-    def pad_grid(self, grid):
-        rows, cols = len(grid), len(grid[0])
-        pad_r = (-rows) % self.segment_height
-        pad_c = (-cols) % self.segment_width
-        if isinstance(grid[0][0], int):
-            pad_val = 0
-        else:
-            pad_val = WHITE_PIXEL
-
-        for row in grid:
-            row.extend([pad_val] * pad_c)
-        for _ in range(pad_r):
-            grid.append([pad_val] * len(grid[0]))
-        return grid
-
     def split_into_segments(self, grid):
         """Split the grid into segments of specified size.
         Each segment is a sub-nonogram with its own clues.
         """
-        padded = self.pad_grid(grid)
         sub_nonograms = []
-        for r in range(0, len(padded), self.segment_height):
-            for c in range(0, len(padded[0]), self.segment_width):
+        for r in range(0, len(grid), self.segment_height):
+            for c in range(0, len(grid[0]), self.segment_width):
                 segment = [
                     row[c : c + self.segment_width]
-                    for row in padded[r : r + self.segment_height]
+                    for row in grid[r : r + self.segment_height]
                 ]
                 sub_nonograms.append(
                     {
